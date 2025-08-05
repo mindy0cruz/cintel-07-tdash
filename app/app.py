@@ -7,8 +7,7 @@ import palmerpenguins
 
 df = palmerpenguins.load_penguins()
 
-ui.page_opts(title="Mindy's Penguins dashboard", fillable=True)
-
+ui.page_opts(title="Mindy's Penguins Dashboard 🐧", fillable=True)
 
 with ui.sidebar(title="Filter controls"):
     ui.input_slider("mass", "Mass", 2000, 6000, 6000)
@@ -47,29 +46,27 @@ with ui.sidebar(title="Filter controls"):
         target="_blank",
     )
 
-
 with ui.layout_column_wrap(fill=False):
     with ui.value_box(showcase=icon_svg("earlybirds")):
-        "Number of penguins"
+        ui.markdown("### 🐧 **Penguin Count**")
 
         @render.text
         def count():
             return filtered_df().shape[0]
 
     with ui.value_box(showcase=icon_svg("ruler-horizontal")):
-        "Average bill length"
+        ui.markdown("### 📏 **Avg. Bill Length**")
 
         @render.text
         def bill_length():
             return f"{filtered_df()['bill_length_mm'].mean():.1f} mm"
 
     with ui.value_box(showcase=icon_svg("ruler-vertical")):
-        "Average bill depth"
+        ui.markdown("### 📐 **Avg. Bill Depth**")
 
         @render.text
         def bill_depth():
             return f"{filtered_df()['bill_depth_mm'].mean():.1f} mm"
-
 
 with ui.layout_columns():
     with ui.card(full_screen=True):
@@ -98,9 +95,7 @@ with ui.layout_columns():
             ]
             return render.DataGrid(filtered_df()[cols], filters=True)
 
-
-#ui.include_css(app_dir / "styles.css")
-
+# ui.include_css(app_dir / "styles.css")
 
 @reactive.calc
 def filtered_df():
